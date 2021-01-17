@@ -1,0 +1,9 @@
+name: 'Auto tag'
+description: 'Auto tagging your repository based on Gitflow branch names'
+inputs:
+  githubToken:
+    description: 'Github token, pass {{ secret.GITHUB_TOKEN }}'
+    required: true
+runs:
+  using: 'node14'
+  main: 'index.js'

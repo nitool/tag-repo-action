@@ -1,0 +1,15 @@
+on: [push]
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    name: A job to test versioning
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Autotag
+        uses: ./
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
