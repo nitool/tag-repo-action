@@ -5,7 +5,7 @@ async function run() {
     const githubToken = core.getInput('githubToken');
     const octokit = github.getOctokit(githubToken)
 
-    const tags = octokit.repos.listTags({
+    const tags = await octokit.repos.listTags({
         ...github.context.repo
     });
 
