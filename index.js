@@ -60,7 +60,7 @@ async function run() {
     }
 
     console.log(github);
-    if (!github.event.pull_request.merged) {
+    if (!github.context.payload.pull_request.merged) {
         return;
     }
 
@@ -72,7 +72,7 @@ async function run() {
     });
 
     const newVersion = incrementPart(
-        specifyPart(github.event.pull_request.head.ref, github.event.pull_request.base.ref),
+        specifyPart(github.context.payload.pull_request.head.ref, github.context.payload.pull_request.base.ref),
         decomposeVersion(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     );
 
