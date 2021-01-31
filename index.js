@@ -10,9 +10,9 @@ const decomposeVersion = version => {
     }
 
     return {
-        major: matches[1],
-        minor: matches[2],
-        patch: matches[3],
+        major: parseInt(matches[1]),
+        minor: parseInt(matches[2]),
+        patch: parseInt(matches[3]),
     }
 }
 
