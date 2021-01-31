@@ -23,7 +23,7 @@ const specifyPart = (branch, target) => {
         throw new Error('target branch is not master, version will not be incremented');
     }
 
-    const flowMatch = branch.match('^(\w+)\/.*?$');
+    const flowMatch = branch.match(/^(\w+)\/.*?$/);
     if (flowMatch === null) {
         throw new Error('given branch is not valid git flow branch');
     }
