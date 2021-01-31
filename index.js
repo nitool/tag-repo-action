@@ -55,6 +55,7 @@ const incrementPart = (part, version) => {
 
 async function run() {
     if (github.context.eventName !== 'pull_request') {
+        console.info('This action has not been prepared to use in other events than pulL_request');
         return;
     }
 
