@@ -72,10 +72,10 @@ async function run() {
 
     const newVersion = incrementPart(
         specifyPart(github.event.pull_request.head.ref, github.event.pull_request.base.ref),
-        decomposeVersion(tags.map(cleanupVersion).sort().pop() ?? '0.0.0')
+        decomposeVersion(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     );
 
-    console.log(tags.map(cleanupVersion).sort().pop() ?? '0.0.0')
+    console.log(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     console.log(newVersion);
 }
 
