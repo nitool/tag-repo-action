@@ -89,11 +89,11 @@ async function run() {
         message: 'auto tag created',
         object: github.context.sha,
         type: 'commit'
-    });
+    }).catch(() => console.error(arguments));
 
     console.log(createdTag)
 
-    const finish = await octokit.git.updateRef({sha: createdTag.sha});
+    const finish = await octokit.git.updateRef({sha: createdTag.sha}).catch(() => console.error(arguments));
     console.log(finish);
 }
 
