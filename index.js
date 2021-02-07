@@ -81,6 +81,12 @@ async function run() {
 
     console.log(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     console.log(newVersion);
+
+    octokit.repos.createTag({
+        tag: newVersion,
+        message: github.context.payload.comment,
+        ...github.context.repo
+    });
 }
 
 run();
