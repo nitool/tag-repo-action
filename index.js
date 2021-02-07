@@ -53,6 +53,8 @@ const incrementPart = (part, version) => {
     return newVersion;
 }
 
+const versionObjectToString = (version) => `${version.major}.${version.minor}.${version.minor}`;
+
 async function run() {
     if (github.context.eventName !== 'pull_request') {
         console.info('This action has not been prepared to use in other events than pulL_request');
@@ -83,9 +85,10 @@ async function run() {
     console.log(newVersion);
 
     octokit.git.createTag({
-        tag: newVersion,
+        tag: versionObjectToString(newVersion),
         message: github.context.payload.comment,
-        ...github.context.repo
+        object: github.context.sha,
+        type: 'commit'
     });
 }
 
