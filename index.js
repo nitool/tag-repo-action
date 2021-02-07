@@ -84,12 +84,14 @@ async function run() {
     console.log(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     console.log(newVersion);
 
-    octokit.git.createTag({
+    const { sha: tagSha } = octokit.git.createTag({
         tag: versionObjectToString(newVersion),
         message: github.context.payload.comment,
         object: github.context.sha,
         type: 'commit'
     });
+
+    octokit.git.updateRef({sha: tagSha});
 }
 
 run();
