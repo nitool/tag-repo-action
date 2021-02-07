@@ -55,7 +55,7 @@ const incrementPart = (part, version) => {
 
 const versionObjectToString = (version) => `${version.major}.${version.minor}.${version.minor}`;
 
-async function run() {
+const run = async () => {
     if (github.context.eventName !== 'pull_request') {
         console.info('This action has not been prepared to use in other events than pulL_request');
         return;
@@ -93,8 +93,15 @@ async function run() {
 
     console.log(createdTag)
 
+    if (createdTag === 'undefined') {
+        console.error('tagging has not been finished successfully');
+        return 1;
+    }
+
     const finish = await octokit.git.updateRef({sha: createdTag.sha}).catch(() => console.error(arguments));
     console.log(finish);
+
+    return 0;
 }
 
-run();
+await run();
