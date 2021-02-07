@@ -86,7 +86,7 @@ async function run() {
 
     const createdTag = await octokit.git.createTag({
         tag: versionObjectToString(newVersion),
-        message: github.context.payload.comment,
+        message: 'auto tag created',
         object: github.context.sha,
         type: 'commit'
     });
