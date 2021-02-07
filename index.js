@@ -104,4 +104,4 @@ const run = async () => {
     return 0;
 }
 
-await run();
+run();
