@@ -89,7 +89,7 @@ const run = async () => {
         message: 'auto tag created',
         object: github.context.sha,
         type: 'commit'
-    }).catch(() => console.error(arguments));
+    }).catch(() => { console.error(arguments); return; });
 
     console.log(createdTag)
 
