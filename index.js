@@ -114,6 +114,7 @@ const run = async () => {
     const { data: createdReference } = await octokit.git.createRef({
         sha: createdTag.sha,
         ref: 'refs/tags/' + versionObjectToString(newVersion),
+        ...github.context.repo
     });
 
     console.log(createdReference)
