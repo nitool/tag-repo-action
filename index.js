@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const Webhooks = require('@octokit/webhooks');
 
 const cleanupVersion = version => version.name.replace(/[_\-\/]/g, '.')
 
@@ -68,7 +67,6 @@ const run = async () => {
         return;
     }
 
-    console.log(github);
     if (!github.context.payload.pull_request.merged) {
         return;
     }
@@ -76,26 +74,23 @@ const run = async () => {
     const githubToken = core.getInput('githubToken');
     const octokit = github.getOctokit(githubToken)
 
+    console.info('Getting list of all tags.');
     const { data: tags } = await octokit.repos.listTags({
         ...github.context.repo
     });
 
-    console.log(github.context.payload.pull_request.head.ref);
-    console.log(github.context.payload.pull_request.base.ref);
-
-    console.log(tags.map(cleanupVersion).sort().pop());
     let currentVersion = tags.map(cleanupVersion).sort().pop();
     if (typeof currentVersion === 'undefined') {
         currentVersion = '0.0.0';
     }
 
+    console.info(`Current tag: ${currentVersion}`);
     const newVersion = incrementPart(
         specifyPart(github.context.payload.pull_request.head.ref, github.context.payload.pull_request.base.ref),
         decomposeVersion(currentVersion)
     );
 
-    console.log(newVersion);
-
+    console.info(`New tag: ${versionObjectToString(newVersion)}`);
     const { data: createdTag } = await octokit.git.createTag({
         tag: versionObjectToString(newVersion),
         message: 'auto tag created',
@@ -104,20 +99,19 @@ const run = async () => {
         ...github.context.repo
     });
 
-    console.log(createdTag)
-
     if (typeof createdTag === 'undefined') {
         console.error('tagging has not been finished successfully');
         return 1;
     }
 
-    const { data: createdReference } = await octokit.git.createRef({
+    console.info('Creating reference.');
+    await octokit.git.createRef({
         sha: createdTag.sha,
         ref: 'refs/tags/' + versionObjectToString(newVersion),
         ...github.context.repo
     });
 
-    console.log(createdReference)
+    console.info('Tagged successfully.');
 
     return 0;
 }
