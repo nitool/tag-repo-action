@@ -39,6 +39,9 @@ const specifyPart = (branch, target) => {
 }
 
 const incrementPart = (part, version) => {
+    console.log(part);
+    console.log(version);
+
     const newVersion = Object.assign({}, version);
     if (part === 'major') {
         newVersion.major = version.major + 1;
@@ -48,7 +51,7 @@ const incrementPart = (part, version) => {
         newVersion.minor = version.minor + 1;
         newVersion.patch = 0;
     } else {
-        newVersion.patch = version.minor + 1;
+        newVersion.patch = version.patch + 1;
     }
 
     return newVersion;
