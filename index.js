@@ -94,6 +94,8 @@ const run = async () => {
         decomposeVersion(currentVersion)
     );
 
+    console.log(newVersion);
+
     const { data: createdTag } = await octokit.git.createTag({
         tag: versionObjectToString(newVersion),
         message: 'auto tag created',
