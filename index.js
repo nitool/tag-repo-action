@@ -81,21 +81,21 @@ const run = async () => {
         decomposeVersion(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     );
 
-    const createdTag = await octokit.git.createTag(Object.assign({
+    const createdTag = await octokit.git.createTag(Object.assign(github.context.repo, {
         tag: versionObjectToString(newVersion),
         message: 'auto tag created',
         object: github.context.sha,
         type: 'commit'
-    }, github.context.repo));
+    }));
 
     console.log(createdTag)
 
-    if (createdTag === 'undefined') {
+    if (typeof createdTag === 'undefined') {
         console.error('tagging has not been finished successfully');
         return 1;
     }
 
-    const finish = await octokit.git.updateRef({sha: createdTag.sha});
+    const finish = await octokit.git.updateRef(Object.assign(githubToken.context.repo, {sha: createdTag.sha})));
     console.log(finish);
 
     return 0;
