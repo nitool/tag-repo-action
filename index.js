@@ -95,7 +95,8 @@ const run = async () => {
         return 1;
     }
 
-    const finish = await octokit.git.updateRef(createdTag);
+    const { data: createdReference } = await octokit.git.createRef(createdTag);
+    const finish= await octokit.git.updateRef(createdReference);
     console.log(finish);
 
     return 0;
