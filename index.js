@@ -77,9 +77,10 @@ const run = async () => {
     console.log(github.context.payload.pull_request.head.ref);
     console.log(github.context.payload.pull_request.base.ref);
 
+    console.log(tags.map(cleanupVersion).sort().pop());
     const newVersion = incrementPart(
         specifyPart(github.context.payload.pull_request.head.ref, github.context.payload.pull_request.base.ref),
-        decomposeVersion(tags.map(cleanupVersion).sort().pop() || '0.0.0')
+        decomposeVersion(tags.map(cleanupVersion).sort().pop() ?? '0.0.0')
     );
 
     const { data: createdTag } = await octokit.git.createTag(Object.assign(github.context.repo, {
