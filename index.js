@@ -101,8 +101,7 @@ const run = async () => {
         ref: 'refs/tags/' + versionObjectToString(newVersion),
     });
 
-    const finish = await octokit.git.updateRef(createdReference);
-    console.log(finish);
+    console.log(createdReference)
 
     return 0;
 }
