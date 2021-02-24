@@ -60,7 +60,7 @@ const incrementPart = (part, version) => {
     return newVersion;
 }
 
-const versionObjectToString = (version) => `${version.major}.${version.minor}.${version.minor}`;
+const versionObjectToString = (version) => `${version.major}.${version.minor}.${version.patch}`;
 
 const run = async () => {
     if (github.context.eventName !== 'pull_request') {
