@@ -100,7 +100,8 @@ const run = async () => {
         tag: versionObjectToString(newVersion),
         message: 'auto tag created',
         object: github.context.sha,
-        type: 'commit'
+        type: 'commit',
+        ...github.context.repo
     });
 
     console.log(createdTag)
