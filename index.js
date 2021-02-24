@@ -44,13 +44,16 @@ const incrementPart = (part, version) => {
 
     const newVersion = Object.assign({}, version);
     if (part === 'major') {
+        console.log('major increment');
         newVersion.major = version.major + 1;
         newVersion.minor = 0;
         newVersion.patch = 0;
     } else if (part === 'minor') {
+        console.log('minor increment');
         newVersion.minor = version.minor + 1;
         newVersion.patch = 0;
     } else {
+        console.log('patch increment');
         newVersion.patch = version.patch + 1;
     }
 
