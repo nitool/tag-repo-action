@@ -2,10 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const Webhooks = require('@octokit/webhooks');
 
-const cleanupVersion = version =>  {
-    console.log(version)
-    version.replace(/[_\-\/]/g, '.')
-}
+const cleanupVersion = version => version.name.replace(/[_\-\/]/g, '.')
 
 const decomposeVersion = version => {
     const matches = version.match(/(\d+)[.](\d+)[.](\d+)/);
