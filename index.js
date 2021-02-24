@@ -95,7 +95,7 @@ const run = async () => {
         return 1;
     }
 
-    const finish = await octokit.git.updateRef(Object.assign(github.context.repo, {sha: createdTag.sha}));
+    const finish = await octokit.git.updateRef(Object.assign(github.context.repo, {sha: createdTag.object.sha}));
     console.log(finish);
 
     return 0;
