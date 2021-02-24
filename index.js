@@ -81,15 +81,12 @@ const run = async () => {
         decomposeVersion(tags.map(cleanupVersion).sort().pop() || '0.0.0')
     );
 
-    console.log(tags.map(cleanupVersion).sort().pop() || '0.0.0')
-    console.log(newVersion);
-
     const createdTag = await octokit.git.createTag({
         tag: versionObjectToString(newVersion),
         message: 'auto tag created',
         object: github.context.sha,
         type: 'commit'
-    }).catch(() => { console.error(arguments); return; });
+    });
 
     console.log(createdTag)
 
