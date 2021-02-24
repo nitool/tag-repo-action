@@ -95,7 +95,7 @@ const run = async () => {
         return 1;
     }
 
-    const finish = await octokit.git.updateRef({sha: createdTag.sha}).catch(() => console.error(arguments));
+    const finish = await octokit.git.updateRef({sha: createdTag.sha});
     console.log(finish);
 
     return 0;
